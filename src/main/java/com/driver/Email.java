@@ -1,4 +1,6 @@
 package com.driver;
+import static java.lang.Character.*;
+
 
 public class Email {
 
@@ -23,45 +25,39 @@ public class Email {
         // 1. It contains at least 8 characters
         // 2. It contains at least one uppercase letter
         // 3. It contains at least one lowercase letter
-        // 4. It contains at least one dig
+        // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
-
-        if(oldPassword.equals(password)){
-            if(isValid(newPassword)){
-                System.out.println("Password Changed Success");
+        if(oldPassword.equals(this.password)) {
+            if(isNewPasswordValid(newPassword)) {
                 this.password = newPassword;
             }
-            else{
-                System.out.println("Password is not valid");
+        }
+    }
+    private boolean isNewPasswordValid(String newPasswordCheck) {
+        boolean upperCase = false;
+        boolean lowerCase = false;
+        boolean digit = false;
+        boolean specialChar = false;
+        int minLength = 8;
+        if(newPasswordCheck.length() < minLength) {
+            return false;
+        }
+        for(int i = 0; i < newPasswordCheck.length(); i++) {
+            char c = newPasswordCheck.charAt(i);
+            if(isUpperCase(c)) {
+                upperCase = true;
+            } else if(isLowerCase(c)) {
+                lowerCase = true;
+            } else if(isDigit(c)) {
+                digit =true;
+            } else {
+                // for special character
+                specialChar = true;
             }
         }
-        else{
-            System.out.println("Given Password Not Match with current one");
-        }
-
-    }
-
-    private Boolean isValid(String password){
-        Boolean cap = false;
-        Boolean sma = false;
-        Boolean dig = false;
-        Boolean spe = false;
-
-        if(password.length()<8) return false;
-
-        for(int i=0;i<password.length();i++){
-            char ch = password.charAt(i);
-            if(ch>= 'a' && ch<= 'z')
-                sma = true;
-            else if(ch>= 'A' && ch<= 'Z')
-                cap = true;
-            else if(ch>= '0' && ch<= '0')
-                dig = true;
-            else spe = true;
-        }
-
-        if(cap == true && sma == true && dig == true && spe == true)
+        if(upperCase && lowerCase && digit && specialChar) {
             return true;
+        }
         return false;
     }
 }
