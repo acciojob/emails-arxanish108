@@ -26,7 +26,7 @@ public class Email {
         // 4. It contains at least one dig
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
 
-        if(oldPassword.equals(newPassword)){
+        if(oldPassword.equals(password)){
             if(isValid(newPassword)){
                 System.out.println("Password Changed Success");
                 this.password = newPassword;
